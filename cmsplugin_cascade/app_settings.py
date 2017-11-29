@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
-
+from django.core.exceptions import AppRegistryNotReady
 
 class AppSettings(object):
 
@@ -135,7 +135,7 @@ class AppSettings(object):
             try:
                 settings_module = import_module('{}.settings'.format(module_name))
                 getattr(settings_module, 'set_defaults')(config)
-            except (ImportError, AttributeError):
+            except (ImportError, AttributeError, AppRegistryNotReady):
                 continue
 
         self._config_CMSPLUGIN_CASCADE = config
